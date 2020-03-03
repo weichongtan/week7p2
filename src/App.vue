@@ -26,7 +26,7 @@ export default {
                     {name:'Peanut Butter',image:'/assets/peanutbutter.jpeg',show:false},
                     {name:'Strawberries',image:'/assets/strawberries.jpg',show:false}
                     ],
-      msg:"Grocery List"
+      msg:"Grocery List (UPDATED 3rd Mar 2020)"
           }
   },
   components: {
