@@ -1,4 +1,4 @@
-# groceryproject
+# week7p2
 
 ## Project setup
 ```
