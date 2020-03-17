@@ -15,7 +15,7 @@ export default {
   
   data(){
     return{
-        msg: 'Grocery'
+        msg: 'Grocery List'
         }
   },
   props:{

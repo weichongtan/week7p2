@@ -6,7 +6,8 @@
             <h2 v-on:click="item.show = !item.show">{{item.name}}</h2>
             <img v-bind:src="item.image" v-show="item.show"/>
             <buttonComponent></buttonComponent>
-                
+            <button name="delete" v-bind:id="item.id" v-on:click="deleteItem(index,item)">Delete</button>
+            <button onclick = "update">Update</button>    
                 
             
         </li>
@@ -16,21 +17,40 @@
 
 
 <script>
+import database from '../firebase.js'
 import ButtonComponent from './ButtonComponent.vue'
+
 export default {
   data(){
     return{
-        itemsList: [{name:'Eggs',image:'./assets/eggs.jpg',show:false},
-                    {name:'Bread',image:'/assets/bread.jfif',show:false},
-                    {name:'Jam',image:'/assets/jam.jfif',show:false},
-                    {name:'CornFlakes',image:'/assets/cornflakes.jfif',show:false},
-                    {name:'Milk',image:'/assets/milk.jfif',show:false},
-                    {name:'Juice',image:'/assets/juice.jfif',show:false}]
-        }
+        itemsList: []
+    }
   },
   components:{
     'buttonComponent':ButtonComponent
-  }
+  },
+  methods:{
+    fetchItems:function(){
+      let item={}
+      database.collection('items').get().then((querySnapShot)=>{
+        
+        querySnapShot.forEach(doc=>{
+          item=doc.data()
+          item.show=false
+          item.id=doc.id
+          this.itemsList.push(item)
+        }) 
+      }) 
+    },
+    deleteItem: function(index,item){
+      database.collection('items').doc(item.id).delete()
+      this.itemsList.splice(index,1)
+      console.log("Item Deleted Successfully")
+    },
+  },
+    created(){
+      this.fetchItems() 
+    }
 }
 </script>
 
